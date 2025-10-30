@@ -3,7 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { Search, User, Menu, X, LogOut, Sparkles, Shield } from "lucide-react";
+import {
+  Search,
+  User,
+  Menu,
+  X,
+  LogOut,
+  Sparkles,
+  Shield,
+  ArrowLeft,
+} from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import LoadingSpinner from "./LoadingSpinner";
 import { publicAPI } from "@/utils/api";
@@ -11,6 +20,31 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
+  // If we're on the auth pages, render a minimal header with a back arrow
+  if (
+    pathname &&
+    (pathname.startsWith("/login") || pathname.startsWith("/register"))
+  ) {
+    return (
+      <nav className="bg-background/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center h-16">
+            <Link href="/" className="flex items-center space-x-2">
+              <ArrowLeft className="h-5 w-5 text-gray-700" />
+              <span className="text-lg font-medium text-gray-800">Home</span>
+            </Link>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
+  return <FullNavbar />;
+}
+
+function FullNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { backendUser, loading, logout, isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,7 +61,6 @@ export default function Navbar() {
   const [searchLoading, setSearchLoading] = useState(false);
   const searchWrapRef = useRef<HTMLFormElement | null>(null);
   const router = useRouter();
-  const pathname = usePathname();
 
   const submitSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -83,6 +116,8 @@ export default function Navbar() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
+
+  const pathname = usePathname();
 
   return (
     <nav className="bg-background/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b">

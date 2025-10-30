@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Facebook,
   Twitter,
@@ -9,6 +12,16 @@ import {
 } from "lucide-react";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on login/register pages
+  if (
+    pathname &&
+    (pathname.startsWith("/login") || pathname.startsWith("/register"))
+  ) {
+    return null;
+  }
+
   return (
     <footer className="bg-card text-card-foreground border-t">
       <div className="container mx-auto px-4 py-12">
