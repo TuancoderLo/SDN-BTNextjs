@@ -160,6 +160,11 @@ function FullNavbar() {
             <Button variant="ghost" asChild>
               <Link href="/about">About</Link>
             </Button>
+            {isAuthenticated && (
+              <Button variant="ghost" asChild>
+                <Link href="/profile">Profile</Link>
+              </Button>
+            )}
           </div>
 
           {/* Right Side Actions */}
@@ -377,6 +382,13 @@ function FullNavbar() {
                     About
                   </Link>
                 </Button>
+                {isAuthenticated && (
+                  <Button variant="ghost" asChild className="justify-start">
+                    <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
+                      Profile
+                    </Link>
+                  </Button>
+                )}
               </>
 
               {/* Admin Navigation */}
