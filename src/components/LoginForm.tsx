@@ -56,14 +56,14 @@ export default function LoginForm() {
   };
 
   return (
-    <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-      <div className="space-y-4">
+    <form className="mt-4 space-y-3" onSubmit={handleSubmit(onSubmit)}>
+      <div className="space-y-2">
         <div>
           <Label htmlFor="email" className="text-foreground">
             Email Address
           </Label>
           <div className="relative">
-            <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+            <Mail className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               {...register("email", {
                 required: "Email is required",
@@ -73,7 +73,7 @@ export default function LoginForm() {
                 },
               })}
               type="email"
-              className="pl-10"
+              className="pl-9 py-2"
               placeholder="Enter your email"
             />
           </div>
@@ -89,7 +89,7 @@ export default function LoginForm() {
             Password
           </Label>
           <div className="relative">
-            <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+            <Lock className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               {...register("password", {
                 required: "Password is required",
@@ -99,18 +99,18 @@ export default function LoginForm() {
                 },
               })}
               type={showPassword ? "text" : "password"}
-              className="pl-10 pr-10"
+              className="pl-9 pr-9 py-2"
               placeholder="Enter your password"
             />
             <button
               type="button"
-              className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
+              className="absolute right-2.5 top-2.5 text-muted-foreground hover:text-foreground"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <EyeOff className="h-5 w-5" />
+                <EyeOff className="h-4 w-4" />
               ) : (
-                <Eye className="h-5 w-5" />
+                <Eye className="h-4 w-4" />
               )}
             </button>
           </div>
@@ -149,7 +149,7 @@ export default function LoginForm() {
         <Button
           type="submit"
           disabled={isLoading}
-          className="w-full py-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-2 text-base disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? "Signing in..." : "Sign in"}
         </Button>
