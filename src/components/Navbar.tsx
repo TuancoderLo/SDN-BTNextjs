@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Search, User, Menu, X, LogOut, Sparkles, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -27,6 +27,7 @@ export default function Navbar() {
   const [searchLoading, setSearchLoading] = useState(false);
   const searchWrapRef = useRef<HTMLFormElement | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   const submitSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -142,7 +143,7 @@ export default function Navbar() {
                 onFocus={() =>
                   suggestions.length > 0 && setShowSuggestions(true)
                 }
-                className="w-72 px-4 py-2.5 pl-11 pr-4"
+                className="w-72 px-4 py-2.5 pl-11 pr-10"
               />
               <button
                 type="submit"
@@ -150,6 +151,24 @@ export default function Navbar() {
               >
                 <Search className="h-4 w-4" />
               </button>
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSuggestions([]);
+                    setShowSuggestions(false);
+                    // Only navigate to /perfumes if we're already on a perfumes route
+                    if (pathname && pathname.startsWith("/perfumes")) {
+                      router.push("/perfumes");
+                    }
+                  }}
+                  aria-label="Clear search"
+                  className="absolute right-3.5 top-3 text-gray-400 hover:text-gray-700"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
               {showSuggestions && (
                 <div className="absolute mt-2 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden">
                   {searchLoading && (
@@ -352,6 +371,25 @@ export default function Navbar() {
                     >
                       <Search className="h-4 w-4" />
                     </button>
+                    {searchQuery && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSearchQuery("");
+                          setSuggestions([]);
+                          setShowSuggestions(false);
+                          // Only navigate to /perfumes if we're already on a perfumes route
+                          if (pathname && pathname.startsWith("/perfumes")) {
+                            router.push("/perfumes");
+                          }
+                          setIsMenuOpen(false);
+                        }}
+                        aria-label="Clear search"
+                        className="absolute right-3.5 top-3.5 text-gray-400 hover:text-gray-700"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    )}
                   </form>
 
                   {/* Cart removed */}
