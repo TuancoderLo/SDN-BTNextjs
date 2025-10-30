@@ -18,9 +18,14 @@ interface FilterSidebarProps {
     rating?: number[];
     gender?: string[];
   }) => void;
+  // Optional external reset key — when this number changes the sidebar will clear its filters
+  resetKey?: number;
 }
 
-export default function FilterSidebar({ onFiltersChange }: FilterSidebarProps) {
+export default function FilterSidebar({
+  onFiltersChange,
+  resetKey,
+}: FilterSidebarProps) {
   const [expandedSections, setExpandedSections] = useState({
     price: true,
     brand: true,
@@ -55,6 +60,14 @@ export default function FilterSidebar({ onFiltersChange }: FilterSidebarProps) {
 
     fetchBrands();
   }, []);
+
+  // Clear filters when parent signals via resetKey
+  useEffect(() => {
+    if (typeof resetKey !== "undefined") {
+      clearAllFilters();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetKey]);
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections((prev) => ({
