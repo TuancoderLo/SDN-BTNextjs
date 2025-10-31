@@ -91,6 +91,33 @@ export default function PerfumeDetail({ perfumeId }: PerfumeDetailProps) {
     fetchPerfume()
   }, [perfumeId])
 
+  // Listen for comment events to refresh comments and ratings without a full page reload
+  useEffect(() => {
+    const handler = (e: any) => {
+      try {
+        const detailPerfumeId = e?.detail?.perfumeId
+        if (!detailPerfumeId || detailPerfumeId !== perfumeId) return
+
+        // refetch public comments for updated rating/count
+        ;(async () => {
+          try {
+            const commentsRes = await publicAPI.getPerfumeComments(perfumeId)
+            setPublicComments(commentsRes.data || [])
+          } catch (err) {
+            // ignore
+          }
+        })()
+      } catch (err) {
+        // ignore
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('commentAdded', handler as EventListener)
+      return () => window.removeEventListener('commentAdded', handler as EventListener)
+    }
+  }, [perfumeId])
+
   // handleAddToCart removed as Add to Cart feature is disabled
 
   const handleShare = () => {

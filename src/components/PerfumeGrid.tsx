@@ -104,6 +104,38 @@ export default function PerfumeGrid({
     if (perfumes.length) fetchRatings();
   }, [perfumes]);
 
+  // Listen for comment added event to refetch ratings
+  useEffect(() => {
+    const handleCommentAdded = () => {
+      if (perfumes.length) {
+        const fetchRatings = async () => {
+          const stats: Record<string, { avg: number; count: number }> = {};
+          await Promise.all(
+            perfumes.map(async (p) => {
+              try {
+                const r = await publicAPI.getPerfumeComments(p._id);
+                const list = r.data || [];
+                stats[p._id] = {
+                  avg: calculateAverageRating(list),
+                  count: list.length,
+                };
+              } catch {
+                stats[p._id] = { avg: 0, count: 0 };
+              }
+            })
+          );
+          setRatings(stats);
+        };
+        fetchRatings();
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('commentAdded', handleCommentAdded);
+      return () => window.removeEventListener('commentAdded', handleCommentAdded);
+    }
+  }, [perfumes]);
+
   // Filter and search logic
   useEffect(() => {
     let filtered = [...perfumes];

@@ -76,6 +76,10 @@ export default function CommentSection({ perfumeId, isAdmin = false }: CommentSe
       setNewRating(0)
       fetchComments()
       toast.success('Comment added successfully')
+      // Trigger rating update in PerfumeGrid
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('commentAdded', { detail: { perfumeId } }))
+      }
     } catch (error: any) {
       console.error('Error adding comment:', error)
       if (error.response?.status === 400) {
@@ -105,6 +109,10 @@ export default function CommentSection({ perfumeId, isAdmin = false }: CommentSe
       setEditRating(0)
       fetchComments()
       toast.success('Comment updated successfully')
+      // Trigger rating update in PerfumeGrid
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('commentAdded', { detail: { perfumeId } }))
+      }
     } catch (error: any) {
       console.error('Error updating comment:', error)
       toast.error('Failed to update comment')
@@ -118,6 +126,10 @@ export default function CommentSection({ perfumeId, isAdmin = false }: CommentSe
       await protectedAPI.deleteComment(commentId)
       fetchComments()
       toast.success('Comment deleted successfully')
+      // Trigger rating update in PerfumeGrid
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('commentAdded', { detail: { perfumeId } }))
+      }
     } catch (error: any) {
       console.error('Error deleting comment:', error)
       toast.error('Failed to delete comment')
@@ -129,6 +141,10 @@ export default function CommentSection({ perfumeId, isAdmin = false }: CommentSe
       await protectedAPI.updateComment(commentId, { isApproved: !isApproved })
       fetchComments()
       toast.success(`Comment ${!isApproved ? 'approved' : 'unapproved'}`)
+      // Trigger rating update in PerfumeGrid
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('commentAdded', { detail: { perfumeId } }))
+      }
     } catch (error: any) {
       console.error('Error updating comment approval:', error)
       toast.error('Failed to update comment')
