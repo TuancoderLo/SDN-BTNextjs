@@ -56,7 +56,13 @@ export default function ProfileForm() {
   const onSubmit = async (data: ProfileFormData) => {
     setIsLoading(true);
     try {
-      await authAPI.updateProfile(data);
+      // Email is not editable here — only send the updatable fields
+      const payload = {
+        name: data.name,
+        YOB: data.YOB,
+        gender: data.gender,
+      } as any;
+      await authAPI.updateProfile(payload);
       toast.success("Profile updated successfully!");
       // Refresh the page to get updated user data
       window.location.reload();
@@ -154,8 +160,10 @@ export default function ProfileForm() {
                   },
                 })}
                 type="email"
-                className="pl-10"
+                className="pl-10 bg-gray-100 cursor-not-allowed"
                 placeholder="Enter your email"
+                readOnly
+                disabled
               />
             </div>
             {errors.email && (
