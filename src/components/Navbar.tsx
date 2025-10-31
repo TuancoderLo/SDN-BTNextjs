@@ -10,7 +10,6 @@ import {
   X,
   LogOut,
   Sparkles,
-  Shield,
   ArrowLeft,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -302,15 +301,7 @@ function FullNavbar() {
                   </p>
                 </div>
               </div>
-              {backendUser?.isAdmin && (
-                <Link
-                  href="/dashboard"
-                  className="p-2.5 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all duration-200"
-                  title="Admin Dashboard"
-                >
-                  <Shield className="h-5 w-5" />
-                </Link>
-              )}
+              {/* Admin shortcut removed to save space; Dashboard remains in main nav */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -391,15 +382,7 @@ function FullNavbar() {
                 )}
               </>
 
-              {/* Admin Navigation */}
-              {backendUser?.isAdmin && (
-                <Button variant="ghost" asChild className="justify-start">
-                  <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>
-                    <Shield className="h-5 w-5 mr-2" />
-                    Admin Dashboard
-                  </Link>
-                </Button>
-              )}
+              {/* Removed duplicate admin navigation (keeps the regular nav item) */}
 
               <div className="pt-4 border-t border-gray-200">
                 {/* Search and Cart */}
