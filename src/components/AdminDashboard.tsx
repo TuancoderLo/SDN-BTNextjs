@@ -885,8 +885,14 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
 
         {/* Add Brand Modal */}
         {showAddBrand && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowAddBrand(false)}>
+            <div className="bg-white rounded-lg p-6 w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={() => setShowAddBrand(false)}
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-6 w-6" />
+              </button>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Add New Brand
               </h3>
@@ -995,8 +1001,14 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
 
         {/* Add Perfume Modal */}
         {showAddPerfume && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowAddPerfume(false)}>
+            <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto relative" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={() => setShowAddPerfume(false)}
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 z-10"
+              >
+                <X className="h-6 w-6" />
+              </button>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Add Perfume
               </h3>
