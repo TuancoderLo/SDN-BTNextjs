@@ -233,6 +233,7 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
         ingredients: "",
       });
       fetchPerfumes();
+      fetchBrandStats();
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to create perfume");
     }
@@ -246,6 +247,7 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
       toast.success("Perfume updated successfully");
       setEditingPerfume(null);
       fetchPerfumes();
+      fetchBrandStats();
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to update perfume");
     }
@@ -257,6 +259,7 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
       await protectedAPI.deletePerfume(perfumeId);
       toast.success("Perfume deleted successfully");
       fetchPerfumes();
+      fetchBrandStats();
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to delete perfume");
     }
