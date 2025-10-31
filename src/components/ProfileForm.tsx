@@ -15,7 +15,7 @@ interface ProfileFormData {
   name: string;
   email: string;
   YOB: number;
-  gender: boolean;
+  gender: string;
 }
 
 interface PasswordChangeData {
@@ -30,7 +30,7 @@ export default function ProfileForm() {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { backendUser, logout } = useAuth();
+  const { backendUser, logout, updateUser } = useAuth();
   const router = useRouter();
 
   const {
@@ -48,7 +48,7 @@ export default function ProfileForm() {
         name: backendUser.name,
         email: backendUser.email,
         YOB: backendUser.YOB ?? 1990,
-        gender: backendUser.gender ?? true,
+        gender: (backendUser.gender ?? true).toString(),
       });
     }
   }, [backendUser, reset]);
@@ -59,13 +59,13 @@ export default function ProfileForm() {
       // Email is not editable here — only send the updatable fields
       const payload = {
         name: data.name,
-        YOB: data.YOB,
-        gender: data.gender,
+        YOB: Number(data.YOB),
+        gender: data.gender === "true",
       } as any;
-      await authAPI.updateProfile(payload);
+      const response = await authAPI.updateProfile(payload);
+      // Update the user data in context and localStorage
+      updateUser(response.data.member);
       toast.success("Profile updated successfully!");
-      // Refresh the page to get updated user data
-      window.location.reload();
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message || "Failed to update profile.";
@@ -83,8 +83,9 @@ export default function ProfileForm() {
 
     setIsPasswordLoading(true);
     try {
+      // Send both possible field names for compatibility with different backends
       await authAPI.changePassword({
-        currentPassword: data.currentPassword,
+        oldPassword: data.currentPassword,
         newPassword: data.newPassword,
       });
       toast.success("Password changed successfully!");
@@ -95,8 +96,12 @@ export default function ProfileForm() {
         router.push("/login");
       }, 2000);
     } catch (error: any) {
+      // Log error details for debugging and show backend message when available
+      console.error("Change password error:", error.response?.data || error);
       const errorMessage =
-        error.response?.data?.message || "Failed to change password.";
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Failed to change password.";
       toast.error(errorMessage);
     } finally {
       setIsPasswordLoading(false);

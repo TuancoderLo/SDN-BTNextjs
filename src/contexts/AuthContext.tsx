@@ -17,6 +17,7 @@ interface AuthContextType {
   loading: boolean;
   loginWithEmail: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  updateUser: (user: BackendUser) => void;
   isAuthenticated: boolean;
 }
 
@@ -102,12 +103,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     toast.success("Successfully signed out!");
   };
 
+  const updateUser = (user: BackendUser) => {
+    setUser(user);
+    setBackendUser(user);
+  };
+
   const value = {
     backendUser,
     loading,
     signInWithGoogle,
     loginWithEmail,
     logout,
+    updateUser,
     isAuthenticated: !!backendUser,
   };
 

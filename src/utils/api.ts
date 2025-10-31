@@ -165,13 +165,13 @@ export const authAPI = {
 
   updateProfile: (data: {
     name: string;
-    email: string;
     YOB: number;
     gender: boolean;
-  }) => api.put("/api/auth/profile", data),
+    photoURL?: string;
+  }) => api.put("/api/members/me", data),
 
-  changePassword: (data: { currentPassword: string; newPassword: string }) =>
-    api.put("/api/auth/change-password", data),
+  changePassword: (data: { oldPassword: string; newPassword: string }) =>
+    api.put("/api/members/me/password", data),
 };
 
 // Public API (no auth required)
