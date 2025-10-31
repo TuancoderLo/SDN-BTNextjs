@@ -888,8 +888,14 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
 
         {/* Add Brand Modal */}
         {showAddBrand && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowAddBrand(false)}>
-            <div className="bg-white rounded-lg p-6 w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            onClick={() => setShowAddBrand(false)}
+          >
+            <div
+              className="bg-white rounded-lg p-6 w-full max-w-md relative"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button
                 onClick={() => setShowAddBrand(false)}
                 className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
@@ -1004,8 +1010,14 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
 
         {/* Add Perfume Modal */}
         {showAddPerfume && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowAddPerfume(false)}>
-            <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto relative" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            onClick={() => setShowAddPerfume(false)}
+          >
+            <div
+              className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto relative"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button
                 onClick={() => setShowAddPerfume(false)}
                 className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 z-10"
@@ -1202,51 +1214,86 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
         {editingPerfume && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Edit Perfume</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Edit Perfume
+              </h3>
               <form onSubmit={handleUpdatePerfume}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Perfume Name</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Perfume Name
+                    </label>
                     <input
                       type="text"
                       required
                       value={editingPerfume.perfumeName}
-                      onChange={(e) => setEditingPerfume({ ...editingPerfume, perfumeName: e.target.value })}
+                      onChange={(e) =>
+                        setEditingPerfume({
+                          ...editingPerfume,
+                          perfumeName: e.target.value,
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Brand</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Brand
+                    </label>
                     <select
                       required
                       value={editingPerfume.brand._id}
-                      onChange={(e) => setEditingPerfume({ ...editingPerfume, brand: { ...editingPerfume.brand, _id: e.target.value } })}
+                      onChange={(e) =>
+                        setEditingPerfume({
+                          ...editingPerfume,
+                          brand: {
+                            ...editingPerfume.brand,
+                            _id: e.target.value,
+                          },
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Select a brand</option>
                       {brandStats?.brands.map((brand) => (
-                        <option key={brand._id} value={brand._id}>{brand.brandName}</option>
+                        <option key={brand._id} value={brand._id}>
+                          {brand.brandName}
+                        </option>
                       ))}
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Price</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Price
+                    </label>
                     <input
                       type="number"
                       required
                       value={editingPerfume.price}
-                      onChange={(e) => setEditingPerfume({ ...editingPerfume, price: Number(e.target.value) })}
+                      onChange={(e) =>
+                        setEditingPerfume({
+                          ...editingPerfume,
+                          price: Number(e.target.value),
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Concentration</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Concentration
+                    </label>
                     <select
                       value={editingPerfume.concentration}
-                      onChange={(e) => setEditingPerfume({ ...editingPerfume, concentration: e.target.value })}
+                      onChange={(e) =>
+                        setEditingPerfume({
+                          ...editingPerfume,
+                          concentration: e.target.value,
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="EDT">EDT</option>
@@ -1256,40 +1303,68 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Volume (ml)</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Volume (ml)
+                    </label>
                     <input
                       type="number"
                       value={editingPerfume.volume}
-                      onChange={(e) => setEditingPerfume({ ...editingPerfume, volume: Number(e.target.value) })}
+                      onChange={(e) =>
+                        setEditingPerfume({
+                          ...editingPerfume,
+                          volume: Number(e.target.value),
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Description
+                    </label>
                     <textarea
                       value={editingPerfume.description}
-                      onChange={(e) => setEditingPerfume({ ...editingPerfume, description: e.target.value })}
+                      onChange={(e) =>
+                        setEditingPerfume({
+                          ...editingPerfume,
+                          description: e.target.value,
+                        })
+                      }
                       rows={4}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Image URL
+                    </label>
                     <input
                       type="url"
                       value={editingPerfume.uri}
-                      onChange={(e) => setEditingPerfume({ ...editingPerfume, uri: e.target.value })}
+                      onChange={(e) =>
+                        setEditingPerfume({
+                          ...editingPerfume,
+                          uri: e.target.value,
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Target Audience</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Target Audience
+                    </label>
                     <select
                       value={editingPerfume.targetAudience}
-                      onChange={(e) => setEditingPerfume({ ...editingPerfume, targetAudience: e.target.value })}
+                      onChange={(e) =>
+                        setEditingPerfume({
+                          ...editingPerfume,
+                          targetAudience: e.target.value,
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="male">Male</option>
@@ -1300,8 +1375,16 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
                 </div>
 
                 <div className="flex justify-end space-x-3 mt-4">
-                  <button type="button" onClick={() => setEditingPerfume(null)} className="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
-                  <button type="submit" className="btn-primary">Update Perfume</button>
+                  <button
+                    type="button"
+                    onClick={() => setEditingPerfume(null)}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn-primary">
+                    Update Perfume
+                  </button>
                 </div>
               </form>
             </div>
