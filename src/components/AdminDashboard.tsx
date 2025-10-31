@@ -996,166 +996,177 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
         {/* Add Perfume Modal */}
         {showAddPerfume && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Add Perfume
               </h3>
               <form onSubmit={handleAddPerfume}>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Perfume Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={newPerfume.perfumeName}
-                    onChange={(e) =>
-                      setNewPerfume({
-                        ...newPerfume,
-                        perfumeName: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Perfume Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newPerfume.perfumeName}
+                      onChange={(e) =>
+                        setNewPerfume({
+                          ...newPerfume,
+                          perfumeName: e.target.value,
+                        })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Brand
+                    </label>
+                    <select
+                      required
+                      value={newPerfume.brand}
+                      onChange={(e) =>
+                        setNewPerfume({ ...newPerfume, brand: e.target.value })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="">Select a brand</option>
+                      {brandStats?.brands.map((brand) => (
+                        <option key={brand._id} value={brand._id}>
+                          {brand.brandName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Price
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      value={newPerfume.price}
+                      onChange={(e) =>
+                        setNewPerfume({
+                          ...newPerfume,
+                          price: Number(e.target.value),
+                        })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Concentration
+                    </label>
+                    <select
+                      value={newPerfume.concentration}
+                      onChange={(e) =>
+                        setNewPerfume({
+                          ...newPerfume,
+                          concentration: e.target.value,
+                        })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="EDT">EDT</option>
+                      <option value="EDP">EDP</option>
+                      <option value="Extrait">Extrait</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Volume (ml)
+                    </label>
+                    <input
+                      type="number"
+                      value={newPerfume.volume}
+                      onChange={(e) =>
+                        setNewPerfume({
+                          ...newPerfume,
+                          volume: Number(e.target.value),
+                        })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Description
+                    </label>
+                    <textarea
+                      value={newPerfume.description}
+                      onChange={(e) =>
+                        setNewPerfume({
+                          ...newPerfume,
+                          description: e.target.value,
+                        })
+                      }
+                      rows={4}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Ingredients (comma separated)
+                    </label>
+                    <input
+                      type="text"
+                      value={newPerfume.ingredients}
+                      onChange={(e) =>
+                        setNewPerfume({
+                          ...newPerfume,
+                          ingredients: e.target.value,
+                        })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Image URL
+                    </label>
+                    <input
+                      type="url"
+                      value={newPerfume.uri}
+                      onChange={(e) =>
+                        setNewPerfume({ ...newPerfume, uri: e.target.value })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Target Audience
+                    </label>
+                    <select
+                      value={newPerfume.targetAudience}
+                      onChange={(e) =>
+                        setNewPerfume({
+                          ...newPerfume,
+                          targetAudience: e.target.value,
+                        })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="unisex">Unisex</option>
+                    </select>
+                  </div>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Brand
-                  </label>
-                  <select
-                    required
-                    value={newPerfume.brand}
-                    onChange={(e) =>
-                      setNewPerfume({ ...newPerfume, brand: e.target.value })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="">Select a brand</option>
-                    {brandStats?.brands.map((brand) => (
-                      <option key={brand._id} value={brand._id}>
-                        {brand.brandName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Price
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={newPerfume.price}
-                    onChange={(e) =>
-                      setNewPerfume({
-                        ...newPerfume,
-                        price: Number(e.target.value),
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Description
-                  </label>
-                  <textarea
-                    value={newPerfume.description}
-                    onChange={(e) =>
-                      setNewPerfume({
-                        ...newPerfume,
-                        description: e.target.value,
-                      })
-                    }
-                    rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Ingredients (comma separated)
-                  </label>
-                  <input
-                    type="text"
-                    value={newPerfume.ingredients}
-                    onChange={(e) =>
-                      setNewPerfume({
-                        ...newPerfume,
-                        ingredients: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Image URL
-                  </label>
-                  <input
-                    type="url"
-                    value={newPerfume.uri}
-                    onChange={(e) =>
-                      setNewPerfume({ ...newPerfume, uri: e.target.value })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Concentration
-                  </label>
-                  <select
-                    value={newPerfume.concentration}
-                    onChange={(e) =>
-                      setNewPerfume({
-                        ...newPerfume,
-                        concentration: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="EDT">EDT</option>
-                    <option value="EDP">EDP</option>
-                    <option value="Extrait">Extrait</option>
-                  </select>
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Volume (ml)
-                  </label>
-                  <input
-                    type="number"
-                    value={newPerfume.volume}
-                    onChange={(e) =>
-                      setNewPerfume({
-                        ...newPerfume,
-                        volume: Number(e.target.value),
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Target Audience
-                  </label>
-                  <select
-                    value={newPerfume.targetAudience}
-                    onChange={(e) =>
-                      setNewPerfume({
-                        ...newPerfume,
-                        targetAudience: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="unisex">Unisex</option>
-                  </select>
-                </div>
-                <div className="flex justify-end space-x-3">
+
+                <div className="flex justify-end space-x-3 mt-4">
                   <button
                     type="button"
                     onClick={() => setShowAddPerfume(false)}
@@ -1175,165 +1186,107 @@ export default function AdminDashboard({ currentUserId }: AdminDashboardProps) {
         {/* Edit Perfume Modal */}
         {editingPerfume && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Edit Perfume
-              </h3>
+            <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Edit Perfume</h3>
               <form onSubmit={handleUpdatePerfume}>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Perfume Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={editingPerfume.perfumeName}
-                    onChange={(e) =>
-                      setEditingPerfume({
-                        ...editingPerfume,
-                        perfumeName: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Perfume Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={editingPerfume.perfumeName}
+                      onChange={(e) => setEditingPerfume({ ...editingPerfume, perfumeName: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Brand</label>
+                    <select
+                      required
+                      value={editingPerfume.brand._id}
+                      onChange={(e) => setEditingPerfume({ ...editingPerfume, brand: { ...editingPerfume.brand, _id: e.target.value } })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="">Select a brand</option>
+                      {brandStats?.brands.map((brand) => (
+                        <option key={brand._id} value={brand._id}>{brand.brandName}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Price</label>
+                    <input
+                      type="number"
+                      required
+                      value={editingPerfume.price}
+                      onChange={(e) => setEditingPerfume({ ...editingPerfume, price: Number(e.target.value) })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Concentration</label>
+                    <select
+                      value={editingPerfume.concentration}
+                      onChange={(e) => setEditingPerfume({ ...editingPerfume, concentration: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="EDT">EDT</option>
+                      <option value="EDP">EDP</option>
+                      <option value="Extrait">Extrait</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Volume (ml)</label>
+                    <input
+                      type="number"
+                      value={editingPerfume.volume}
+                      onChange={(e) => setEditingPerfume({ ...editingPerfume, volume: Number(e.target.value) })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea
+                      value={editingPerfume.description}
+                      onChange={(e) => setEditingPerfume({ ...editingPerfume, description: e.target.value })}
+                      rows={4}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                    <input
+                      type="url"
+                      value={editingPerfume.uri}
+                      onChange={(e) => setEditingPerfume({ ...editingPerfume, uri: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Target Audience</label>
+                    <select
+                      value={editingPerfume.targetAudience}
+                      onChange={(e) => setEditingPerfume({ ...editingPerfume, targetAudience: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="unisex">Unisex</option>
+                    </select>
+                  </div>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Brand
-                  </label>
-                  <select
-                    required
-                    value={editingPerfume.brand._id}
-                    onChange={(e) =>
-                      setEditingPerfume({
-                        ...editingPerfume,
-                        brand: { ...editingPerfume.brand, _id: e.target.value },
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="">Select a brand</option>
-                    {brandStats?.brands.map((brand) => (
-                      <option key={brand._id} value={brand._id}>
-                        {brand.brandName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Price
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={editingPerfume.price}
-                    onChange={(e) =>
-                      setEditingPerfume({
-                        ...editingPerfume,
-                        price: Number(e.target.value),
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Description
-                  </label>
-                  <textarea
-                    value={editingPerfume.description}
-                    onChange={(e) =>
-                      setEditingPerfume({
-                        ...editingPerfume,
-                        description: e.target.value,
-                      })
-                    }
-                    rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Image URL
-                  </label>
-                  <input
-                    type="url"
-                    value={editingPerfume.uri}
-                    onChange={(e) =>
-                      setEditingPerfume({
-                        ...editingPerfume,
-                        uri: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Concentration
-                  </label>
-                  <select
-                    value={editingPerfume.concentration}
-                    onChange={(e) =>
-                      setEditingPerfume({
-                        ...editingPerfume,
-                        concentration: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="EDT">EDT</option>
-                    <option value="EDP">EDP</option>
-                    <option value="Extrait">Extrait</option>
-                  </select>
-                </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Volume (ml)
-                  </label>
-                  <input
-                    type="number"
-                    value={editingPerfume.volume}
-                    onChange={(e) =>
-                      setEditingPerfume({
-                        ...editingPerfume,
-                        volume: Number(e.target.value),
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Target Audience
-                  </label>
-                  <select
-                    value={editingPerfume.targetAudience}
-                    onChange={(e) =>
-                      setEditingPerfume({
-                        ...editingPerfume,
-                        targetAudience: e.target.value,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="unisex">Unisex</option>
-                  </select>
-                </div>
-                <div className="flex justify-end space-x-3">
-                  <button
-                    type="button"
-                    onClick={() => setEditingPerfume(null)}
-                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                  >
-                    Cancel
-                  </button>
-                  <button type="submit" className="btn-primary">
-                    Update Perfume
-                  </button>
+
+                <div className="flex justify-end space-x-3 mt-4">
+                  <button type="button" onClick={() => setEditingPerfume(null)} className="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+                  <button type="submit" className="btn-primary">Update Perfume</button>
                 </div>
               </form>
             </div>
